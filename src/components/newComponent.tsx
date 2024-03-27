@@ -11,7 +11,8 @@ type ComponentType = {
 }
 
 
-export const NewComponent = (props: NewComponentType) => {
+export const
+    NewComponent = (props: NewComponentType) => {
     return (
         <StyledNewComponent>
             {props.cars.map((car, index) => {
