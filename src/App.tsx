@@ -1,58 +1,84 @@
 import './App.css';
 import styled from 'styled-components';
 import {useState} from "react";
+import {FilteredList} from "./components/FilteredList";
 
+
+export type FilteredPropsType = "ALL" | "RUBLS" | "Dollars"
 
 function App() {
+    const [money, setMoney] = useState([
+        {banknots: 'Dollars', value: 100, number: ' a1234567890'},
+        {banknots: 'Dollars', value: 50, number: ' z1234567890'},
+        {banknots: 'RUBLS', value: 100, number: ' w1234567890'},
+        {banknots: 'Dollars', value: 100, number: ' e1234567890'},
+        {banknots: 'Dollars', value: 50, number: ' c1234567890'},
+        {banknots: 'RUBLS', value: 100, number: ' r1234567890'},
+        {banknots: 'Dollars', value: 50, number: ' x1234567890'},
+        {banknots: 'RUBLS', value: 50, number: ' v1234567890'},
+    ])
 
-    // let a = 1
-    let[a, setA] = useState(1)
+    const [filter, setFilter] = useState<FilteredPropsType>("ALL")
 
-    const onclickHandler = () => {
-        setA(++a)
-        console.log(a)
+    let currentMoney = money
+    if (filter === "Dollars") {
+        currentMoney = money.filter(filteredMoney => filteredMoney.banknots === "Dollars");
+    } else if (filter === "RUBLS") {
+        currentMoney = money.filter(filteredMoney => filteredMoney.banknots === "RUBLS");
     }
 
-    const onclickHandlerZero = () => {
-        setA(a = 0)
-        console.log(a)
+    const onClickFilterHandler = (nameButton: FilteredPropsType) => {
+        setFilter(nameButton)
     }
-
 
     return (
-        <StyledApp>
-            <h1>{a}</h1>
-            <button onClick={onclickHandler}>number</button>
-            <button onClick={onclickHandlerZero}>0</button>
-        </StyledApp>
+        <>
+            <FilteredList arr={currentMoney} callback={onClickFilterHandler}/>
+            {/*<StyledApp>*/}
+            {/*    {currentMoney.map((objFromMoneyArr, index) => {*/}
+            {/*        return (*/}
+            {/*            <li key={index}>*/}
+            {/*                <span>{objFromMoneyArr.banknots}</span>*/}
+            {/*                <span>{objFromMoneyArr.value}</span>*/}
+            {/*                <span>{objFromMoneyArr.number}</span>*/}
+            {/*            </li>*/}
+            {/*        )*/}
+            {/*    })}*/}
+            {/*</StyledApp>*/}
+            {/*<button onClick={() => onClickFilterHandler("ALL")}>ALL</button>*/}
+            {/*<button onClick={() => onClickFilterHandler("RUBLS")}>RUBLS</button>*/}
+            {/*<button onClick={() => onClickFilterHandler("Dollars")}>Dollars</button>*/}
+        </>
     )
 }
 
 export default App;
 
-const StyledApp = styled.div`
+const StyledApp = styled.ul`
 
 `
 
 
+// // let a = 1
+// let[a, setA] = useState(1)
+//
+// const onclickHandler = () => {
+//     setA(++a)
+//     console.log(a)
+// }
+//
+// const onclickHandlerZero = () => {
+//     setA(a = 0)
+//     console.log(a)
+// }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+{/*<h1>{a}</h1>*/
+}
+{/*<button onClick={onclickHandler}>number</button>*/
+}
+{/*<button onClick={onclickHandlerZero}>0</button>*/
+}
 
 
 // const topCars = [
@@ -74,7 +100,11 @@ const StyledApp = styled.div`
 // }
 
 
-{/*<NewComponent cars={topCars}/>*/}
-{/*<Button name={"MyYouTubeChanel-1"} callBack={() => Button1Foo("Vasya", 21, "Minsk")}/>*/}
-{/*<Button name={"MyYouTubeChanel-2"} callBack={() => Button2Foo("Ivan")}/>*/}
-{/*<Button name={"Stupid-button"} callBack={() => Button3Foo}/>*/}
+{/*<NewComponent cars={topCars}/>*/
+}
+{/*<Button name={"MyYouTubeChanel-1"} callBack={() => Button1Foo("Vasya", 21, "Minsk")}/>*/
+}
+{/*<Button name={"MyYouTubeChanel-2"} callBack={() => Button2Foo("Ivan")}/>*/
+}
+{/*<Button name={"Stupid-button"} callBack={() => Button3Foo}/>*/
+}
