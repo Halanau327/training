@@ -1,8 +1,39 @@
-import {CityType} from "./02";
+import {CityType, StydentType} from "./02";
+import {addSkill, changeStudentLive, makeStudentActive} from "./02";
 
 let city: CityType;
+let student: StydentType;
 
 beforeEach(() => {
+//     student = {
+//         id: 1,
+//         name: "Dimych",
+//         age: 32,
+//         isActive: false,
+//         address: {
+//             streetTitle: "Surganova 2",
+//             city: {
+//                 title: "Minsk",
+//                 countryTitle: "Belarus"
+//             }
+//         },
+//         technologies: [
+//             {
+//                 id: 1,
+//                 title: "HTML"
+//             },
+//             {
+//                 id: 2,
+//                 title: "CSS"
+//             },
+//             {
+//                 id: 3,
+//                 title: "React"
+//             }
+//         ]
+//     }
+// })
+
     city = {
         houses: [
             {
@@ -95,3 +126,27 @@ test("city should contains hospital and fire station", () => {
     expect(city.governmentBuildings[1].staffCount).toBe(1000)
     expect(city.governmentBuildings[1].address.street.title).toBe("Souths park str")
 })
+
+test('new tech skill should be added to student', () => {
+    expect(student.technologies.length).toBe(3)
+    addSkill(student, 'JS')
+    expect(student.technologies.length).toBe(4)
+    expect(student.technologies[3].title).toBe('JS')
+    expect(student.technologies[3].id).toBeDefined()
+})
+
+test('student should be made active', () => {
+    expect(student.isActive).toBe(false)
+    makeStudentActive(student)
+    expect(student.isActive).toBe(true)
+})
+
+
+test('does student live in city', () => {
+    expect(student.address.city.title).toBe('Minsk')
+    const result1 = changeStudentLive(student, 'Moscow')
+    const result2 = changeStudentLive(student, 'Minsk')
+    expect(result1).toBe(false)
+    expect(result2).toBe(true)
+})
+
