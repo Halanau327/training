@@ -1,8 +1,8 @@
 import React from 'react';
-import {FilteredPropsType} from "../App";
+
 
 type FilteredListPropsType = {
-    callback: (name: FilteredPropsType) => void
+    callback: () => void
     arr: Array<ArrType>
 }
 
@@ -28,9 +28,9 @@ export const FilteredList = (props:FilteredListPropsType) => {
                     )
                 })}
             </ul>
-            <button onClick={() => props.callback("ALL")}>ALL</button>
-            <button onClick={() => props.callback("RUBLS")}>RUBLS</button>
-            <button onClick={() => props.callback("Dollars")}>Dollars</button>
+            <button onClick={() => props.callback}>ALL</button>
+            <button onClick={() => props.callback}>RUBLS</button>
+            <button onClick={() => props.callback}>Dollars</button>
         </>
     );
 };
