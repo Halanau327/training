@@ -1,5 +1,5 @@
-import {CityType} from "./03";
-import {getStreetsTitlesOfGovernmentBuildings, getStreetsTitlesOfHouses} from "./05";
+import {CityType} from "../03/03";
+import {demolishHousesOnTheStreet, getBuildingsWithStaffCountGreaterThen} from "./04";
 
 let city: CityType;
 
@@ -49,7 +49,7 @@ beforeEach(() => {
                 address: {
                     number: 200,
                     street: {
-                        title: "Happy street"
+                        title: "Central Str"
                     }
                 }
             },
@@ -60,7 +60,7 @@ beforeEach(() => {
                 address: {
                     number: 1000,
                     street: {
-                        title: "Happy street"
+                        title: "Souths park str"
                     }
                 }
             },
@@ -68,21 +68,20 @@ beforeEach(() => {
     }
 })
 
-// 01. создайте в том же файле ещё одну функцию, чтобы тесты прошли
-test('list of streets titles of government buildings', ()=> {
-    let streetsNames = getStreetsTitlesOfGovernmentBuildings(city.governmentBuildings);
+// 01. Дополните тип HouseType (добавьте порядковый id от 1 и по возрастанию)
+// 02. Создайте в том же файле ещё одну функцию, чтобы тесты прошли
+test('House should be destroyed', () => {
+    demolishHousesOnTheStreet(city, 'Happy street');
 
-    expect(streetsNames.length).toBe(2);
-    expect(streetsNames[0]).toBe("Central Str");
-    expect(streetsNames[1]).toBe("South Str");
+    expect(city.houses.length).toBe(1);
+    expect(city.houses[0].id).toBe(1);
+
 })
 
-//02. создайте в том же файле ещё одну функцию, чтобы тесты прошли
-test('list of streets titles', ()=> {
-    let streetsNames = getStreetsTitlesOfHouses(city.houses);
+// 03. Массив строений, где работают больше 500 людей
+test('buildings with correct staff count', () => {
+    let buildings = getBuildingsWithStaffCountGreaterThen(city.governmentBuildings, 500)
 
-    expect(streetsNames.length).toBe(3);
-    expect(streetsNames[0]).toBe("White street");
-    expect(streetsNames[1]).toBe("Happy street");
-    expect(streetsNames[2]).toBe("Happy street");
+    expect(buildings.length).toBe(1);
+    expect(buildings[0].type).toBe('FIRE-STATION')
 })

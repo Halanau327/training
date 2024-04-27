@@ -1,4 +1,4 @@
-import {GovernmentBuildingsType, HousesType} from "./03";
+import {GovernmentBuildingsType, HousesType} from "../03/03";
 
 export const getStreetsTitlesOfGovernmentBuildings = (buildings: Array<GovernmentBuildingsType>) => {
     return buildings.map(b => b.address.street.title)

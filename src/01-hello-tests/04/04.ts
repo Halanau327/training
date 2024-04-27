@@ -1,4 +1,4 @@
-import {CityType, GovernmentBuildingsType} from "./03";
+import {CityType, GovernmentBuildingsType} from "../03/03";
 
 export const demolishHousesOnTheStreet = (city: CityType, street: string) => {
     city.houses = city.houses.filter(h => h.address.street.title !== street)

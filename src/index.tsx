@@ -1,20 +1,40 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import {User} from "./01-hello-tests/06";
+import React, { ChangeEvent, useState } from 'react'
+import ReactDOM from 'react-dom'
+import './index.css'
 
+const MIN_COMMENT_SIZE = 5
 
-const root = ReactDOM.createRoot(
-    document.getElementById('root') as HTMLElement
-);
-root.render(
-    <React.StrictMode>
-       <User/>
-    </React.StrictMode>
-);
+function LongCommentChecker() {
+    const [comment, setComment] = useState<string>('')
+    const isCommentReady = comment.length > MIN_COMMENT_SIZE
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+    const onClickSendComment = () => {
+        if (isCommentReady) {
+            setComment('')
+        }
+    }
+    const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        const newComment = e.currentTarget.value
 
+        setComment(newComment)
+    }
+
+    return (
+        <main>
+            <textarea
+                placeholder={'Your comment must have more than 5 charters'}
+                value={comment}
+                onChange={onChangeHandler}
+            />
+            <div>
+                <button
+                    disabled={!isCommentReady}
+                    onClick={onClickSendComment}>
+                    Send comment
+                </button>
+            </div>
+        </main>
+    )
+}
+
+ReactDOM.render(<LongCommentChecker/>, document.getElementById('root'))
