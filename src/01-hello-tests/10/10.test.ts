@@ -4,7 +4,7 @@ import {
     UserType,
     UserWithLaptopType,
     moveUserToOtherHouse,
-    addNewBooksToUser, updateBook, removeBook, WithCompaniesType, addCompany
+    addNewBooksToUser, updateBook, removeBook, WithCompaniesType, updateCompanyTitle, updateCompanyTitle2
 } from "./10";
 import {moveUser} from "./10";
 
@@ -131,11 +131,29 @@ test('add new company', () => {
     }
 
 
-    const userCopy = addCompany(user, {id:3, title: "Amasti"})
+    const userCopy = updateCompanyTitle(user, 1, 'EPAM') as UserWithLaptopType & WithCompaniesType
 
     expect(user).not.toBe(userCopy)
-    expect(userCopy.companies.length).toBe(3)
-    expect(userCopy.companies[2]).toBe({id:3, title: "Amasti"})
+    expect(user.address).toBe(userCopy.address)
+    expect(user.companies).not.toBe(userCopy.companies)
+    expect(userCopy.companies[0].title).toBe('EPAM')
+
+})
+
+test('update company', () => {
+
+    let companies = {
+        'Dimych': [{id: 1, title: 'Епам'}, {id: 2, title: 'IT-INKUBATOR'}],
+        'Artem': {id: 2, title: 'IT-INKUBATOR'}
+    }
+
+    const copy = updateCompanyTitle2(companies, 'Dimych', 1, 'EPAM')
+
+    expect(copy['Dimych']).not.toBe(companies['Dimych'])
+    expect(copy['Artem']).toBe(companies['Artem'])
+    expect(copy['Dimych'][0].title).toBe('EPAM')
+
+
 })
 
 
