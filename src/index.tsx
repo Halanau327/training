@@ -1,5 +1,3 @@
-import React, {useState} from "react";
-
 type samuraiType = {
     id: string
     name: string
